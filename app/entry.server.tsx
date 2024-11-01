@@ -12,6 +12,7 @@ import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { initDB } from "db/config";
+import { boot } from "./boot.server";
 
 const ABORT_DELAY = 5_000;
 
@@ -25,7 +26,8 @@ export default async function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext
 ) {
-  await initDB();
+  await Promise.all([initDB(), boot()]);
+  console.log("Booted!")
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
         request,
