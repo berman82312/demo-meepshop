@@ -18,19 +18,24 @@ export async function action({ request, params }: ActionFunctionArgs) {
       const accounts = await service.repository.lockForUpdate(t).getAll(
         [fromId, toId],
       );
+
       if (accounts.length !== 2) {
         throw new Error("Invalid account IDs");
       }
+
       const fromAccount = accounts.find((account) => account.id === fromId);
       const toAccount = accounts.find((account) => account.id === toId);
+
       if (!fromAccount || !toAccount) {
         throw new Error("Invalid account IDs");
       }
+
       const [newFromAccount, newToAccount] = await service.transfer(
         fromAccount,
         toAccount,
         Number(amount),
       );
+
       return [newFromAccount, newToAccount];
     });
 
@@ -49,10 +54,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     }, 201);
   } catch (err: unknown) {
     console.error(err);
+
     let errorMsg = "Unknown Error";
+
     if (err instanceof Error) {
       errorMsg = err.message;
     }
+
     return json({ error: errorMsg }, 404);
   }
 }
