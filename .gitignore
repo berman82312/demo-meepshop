@@ -6,3 +6,6 @@ node_modules
 
 # Database volume map into docker container
 db-data
+
+# temp files
+tmp

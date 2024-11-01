@@ -7,7 +7,7 @@ class Event {
       this.emitter = emitter
     }
   }
-  publish (eventName: string, ...args: any[]) {
+  publish (eventName: string, ...args: unknown[]) {
     this.emitter.emit(eventName, ...args)
   }
   subscribe (eventName: string, callback: (...args: any[]) => void) {
@@ -17,7 +17,7 @@ class Event {
       this.remove(eventName, callback)
     }
   }
-  remove (eventName: string, callback: (...args: any[]) => void) {
+  remove (eventName: string, callback: (...args: unknown[]) => void) {
     this.emitter.off(eventName, callback)
   }
 }

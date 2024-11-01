@@ -1,70 +1,75 @@
 import { Lock, Op, Transaction } from "@sequelize/core";
-import Account from './model'
+import Account from "./model";
+import eventServer from "lib/event/event.server";
+import { AccountCreated } from "base/events";
+import { initDB } from "db/config";
 
 type QueryOptions = {
-  lock?: Lock
-  transaction?: Transaction
-}
+  lock?: Lock;
+  transaction?: Transaction;
+};
 
 type AccountPayload = {
-  name: string
-  balance?: number
-}
+  name: string;
+  balance?: number;
+};
 
 export class AccountRepository {
-  queryOptions: QueryOptions = {}
+  queryOptions: QueryOptions = {};
 
-  async get (id: number | number[]) {
-    if (Array.isArray(id)) {
-      return this.getAll(id)
-    }
+  async get(id: number) {
+    await initDB();
 
-    const account = await Account.findByPk(id, this.queryOptions)
+    const account = await Account.findByPk(id, this.queryOptions);
+    eventServer.publish(AccountCreated, account);
 
-    this._resetQueryOptions()
+    this._resetQueryOptions();
 
-    return account
+    return account;
   }
 
-  async getAll (id?: number[]) {
+  async getAll(id?: number[]) {
+    await initDB();
     const accounts = await Account.findAll({
       ...this.queryOptions,
-      where: !!id ? {
-        id: {
-          [Op.in]: id
+      where: id
+        ? {
+          id: {
+            [Op.in]: id,
+          },
         }
-      } : undefined,
-    })
+        : undefined,
+    });
 
-    this._resetQueryOptions()
+    this._resetQueryOptions();
 
-    return accounts
+    return accounts;
   }
 
-  async updateBalance (account: Account, balance: number) {
-    account.balance = balance
+  async updateBalance(account: Account, balance: number) {
+    account.balance = balance;
     return await account.save({
-      fields: ['balance']
-    })
+      fields: ["balance"],
+    });
   }
 
-  async createAccount (newAccountData: AccountPayload) {
+  async createAccount(newAccountData: AccountPayload) {
     const account = await Account.create({
       name: newAccountData.name,
-      balance: newAccountData.balance ?? 0
-    })
-    return account
+      balance: newAccountData.balance ?? 0,
+    });
+    return account;
   }
 
-  lockForUpdate (transaction: Transaction) {
-    this.queryOptions.lock = Lock.UPDATE
-    this.queryOptions.transaction = transaction
-    return this
+  lockForUpdate(transaction: Transaction) {
+    this.queryOptions.lock = Lock.UPDATE;
+    this.queryOptions.transaction = transaction;
+    return this;
   }
 
-  _resetQueryOptions () {
-    this.queryOptions = {}
+  _resetQueryOptions() {
+    this.queryOptions = {};
   }
 }
 
-export default new AccountRepository()
+export default new AccountRepository();

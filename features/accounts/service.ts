@@ -24,8 +24,6 @@ export class AccountService {
       balance
     })
 
-    eventServer.publish(AccountCreated, newAccount)
-
     return newAccount
   }
 
