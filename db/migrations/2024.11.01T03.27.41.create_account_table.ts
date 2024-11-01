@@ -17,6 +17,14 @@ export const up: Migration = async ({ context: sequelize }) => {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       defaultValue: 0
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
   })
 };

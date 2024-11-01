@@ -30,4 +30,7 @@ export class Account extends Model<
   @NotNull
   @Default(0)
   declare balance: CreationOptional<number>;
+
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }

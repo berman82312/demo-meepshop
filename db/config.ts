@@ -1,8 +1,10 @@
 import Sequelize, { importModels } from "@sequelize/core";
 import { MySqlDialect } from "@sequelize/mysql";
-import getDirname from 'utils/getDirname';
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
+import { Account } from "./models/Account.model";
 
-const __dirname = getDirname()
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const sequelize = new Sequelize({
   dialect: MySqlDialect,
@@ -11,19 +13,21 @@ const sequelize = new Sequelize({
   password: process.env.MYSQL_PASSWORD,
   host: 'localhost',
   port: Number(process.env.MYSQL_PORT),
-  models: await importModels(__dirname + './models/*.model.ts'),
+  models: [Account],
   define: {
     underscored: true
   }
 })
 
-try {
-  await sequelize.authenticate();
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('DB connection has been established.')
+export async function initDB () {
+  try {
+    await sequelize.authenticate();
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('DB connection has been established.')
+    }
+  } catch (error) {
+    console.error('Unable to connect to DB: ', error)
   }
-} catch (error) {
-  console.error('Unable to connect to DB: ', error)
 }
 
 export default sequelize;

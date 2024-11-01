@@ -9,7 +9,7 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
     "test": "vitest",
-    "migrator": "tsx --env-file=.env --trace-deprecation ./db/migrator",
+    "migrate": "tsx --env-file=.env --trace-deprecation ./db/migrator",
     "typecheck": "tsc"
   },
   "dependencies": {

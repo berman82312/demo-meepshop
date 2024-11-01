@@ -1,9 +1,10 @@
 import { SequelizeStorage, Umzug } from "umzug";
 import sequelize from "./config";
 import esMain from "es-main";
-import getDirname from "utils/getDirname";
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
 
-const __dirname = getDirname()
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export const umzug = new Umzug({
   migrations: { glob: ['migrations/*.ts', { cwd: __dirname }] },
