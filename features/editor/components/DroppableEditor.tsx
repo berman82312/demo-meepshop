@@ -10,10 +10,6 @@ export const DroppableEditor = () => {
     ev.preventDefault();
     ev.dataTransfer.dropEffect = "copy";
   };
-  // const handleDragLeave: DragEventHandler = function (ev) {
-  //   const itemType = ev.dataTransfer.getData("type");
-  //   console.log("Drag leave: ", itemType);
-  // };
   const handleDrop: DragEventHandler = function (ev) {
     ev.preventDefault();
     const itemType = ev.dataTransfer.getData("type");
@@ -25,7 +21,6 @@ export const DroppableEditor = () => {
       className="flex flex-grow flex-col p-4 gap-4 h-full w-full"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      // onDragLeave={handleDragLeave}
     >
       {sections.map((section, index) => {
         return <EditorSection section={section} key={`${section}_${index}`} />;
