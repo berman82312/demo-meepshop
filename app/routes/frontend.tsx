@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { Link } from "@remix-run/react";
-import { DroppableEditor } from "components/DroppableEditor";
+import { DroppableEditor } from "features/editor/components/DroppableEditor";
 import { type DragEventHandler } from "react";
 
 export default function Page() {
