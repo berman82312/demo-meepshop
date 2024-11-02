@@ -1,8 +1,6 @@
 import { ValidationError } from "base/error";
 import Account from "./model";
 import { AccountRepository } from "./repository";
-import eventServer from "lib/event/event.server";
-import { AccountCreated } from "base/events";
 
 class NotEnoughBalanceError extends ValidationError {
   constructor(account: Account) {
