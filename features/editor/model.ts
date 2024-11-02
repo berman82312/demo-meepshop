@@ -1,7 +1,4 @@
-export interface SectionDO {
-  id: string;
-  type: string;
-}
+export type SectionDO = TextSectionDO | ImageSectionDO;
 
 export interface TextSectionDO {
   id: string;
@@ -23,6 +20,12 @@ export abstract class EditorSection {
     this.id = id ?? Math.round(Math.random() * 1e16).toString();
   }
 
+  updateField(name: string, value: unknown) {
+    throw new Error(
+      `Editor section must implement updateField method ${name} ${value}`,
+    );
+  }
+
   toDataObject(): SectionDO {
     throw new Error("Editor section must implement toDataObject");
   }
@@ -39,6 +42,12 @@ export class TextSection extends EditorSection {
   constructor(id?: string, options?: Partial<TextSectionDO>) {
     super(id);
     this.content = options?.content ?? "";
+  }
+
+  updateField(name: string, value: unknown): void {
+    if (name === "content" && typeof value === "string") {
+      this.content = value;
+    }
   }
 
   toDataObject(): TextSectionDO {
@@ -61,9 +70,10 @@ export class ImageSection extends EditorSection {
   constructor(id?: string, options?: Partial<ImageSectionDO>) {
     super(id);
     this.url = options?.url ?? "/sample.jpg";
-    this.width = options?.width ?? "1340px";
-    this.height = options?.height ?? "890px";
+    this.width = options?.width ?? "402px";
+    this.height = options?.height ?? "267px";
   }
+
   toDataObject(): ImageSectionDO {
     return {
       type: "image",
@@ -72,6 +82,18 @@ export class ImageSection extends EditorSection {
       width: this.width,
       height: this.height,
     };
+  }
+
+  updateField(name: string, value: unknown): void {
+    if (name === "url" && typeof value === "string") {
+      this.url = value;
+    }
+    if (name === "height" && typeof value === "string") {
+      this.height = value;
+    }
+    if (name === "width" && typeof value === "string") {
+      this.width = value;
+    }
   }
 
   static fromDataObject(data: ImageSectionDO) {

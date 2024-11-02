@@ -1,11 +1,11 @@
-import { type DragEventHandler } from "react";
-import { useEditor } from "../hook";
+import { type DragEventHandler, KeyboardEventHandler, useContext } from "react";
 import { ImageSectionDO, SectionDO, TextSectionDO } from "../model";
 import { TextSection } from "./TextSection";
 import { ImageSection } from "./ImageSection";
+import { EditorContext } from "../context";
 
 export const DroppableEditor = () => {
-  const { sections, addSection } = useEditor();
+  const { sections, addSection } = useContext(EditorContext);
   const handleDragOver: DragEventHandler = function (ev) {
     ev.preventDefault();
     ev.dataTransfer.dropEffect = "copy";
@@ -39,8 +39,26 @@ type EditorSectionProps = {
 };
 
 function EditorSection({ section }: EditorSectionProps) {
+  const { setEditing } = useContext(EditorContext);
+
+  function onClick() {
+    setEditing(section);
+  }
+
+  const onKeyUp: KeyboardEventHandler = function (e) {
+    if (e.nativeEvent.key === "Enter") {
+      setEditing(section);
+    }
+  };
+
   return (
-    <div className="flex p-4 rounded border border-neutral-200 dark: border-neutral-700">
+    <div
+      className="flex p-4 rounded border border-neutral-200 dark: border-neutral-700"
+      onClick={onClick}
+      onKeyUp={onKeyUp}
+      role="button"
+      tabIndex={0}
+    >
       {section.type === "text"
         ? <TextSection section={section as TextSectionDO} />
         : <ImageSection section={section as ImageSectionDO} />}

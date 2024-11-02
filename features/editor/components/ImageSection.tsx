@@ -5,12 +5,17 @@ type ImageSectionProps = {
 };
 export const ImageSection = ({ section }: ImageSectionProps) => {
   return (
-    <div>
+    <div className="w-full overflow-hidden">
       <img
+        className="max-w-none overflow-hidden"
         src={section.url}
         alt="test"
         height={section.height}
         width={section.width}
+        style={{
+          height: section.height,
+          width: section.width,
+        }}
       />
     </div>
   );
