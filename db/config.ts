@@ -1,10 +1,6 @@
-import Sequelize, { importModels } from "@sequelize/core";
+import Sequelize from "@sequelize/core";
 import { MySqlDialect } from "@sequelize/mysql";
-import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
 import { Account } from "./models/Account.model";
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const sequelize = new Sequelize({
   dialect: MySqlDialect,
@@ -22,9 +18,6 @@ const sequelize = new Sequelize({
 export async function initDB () {
   try {
     await sequelize.authenticate();
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('DB connection has been established.')
-    }
   } catch (error) {
     console.error('Unable to connect to DB: ', error)
   }
