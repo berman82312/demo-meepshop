@@ -7,6 +7,8 @@ const fakeAccount = (id: number, data?: Record<string, unknown>) => ({
   ...data
 });
 
+vi.mock('db/config')
+
 vi.mock("./model", () => {
   return {
     default: {

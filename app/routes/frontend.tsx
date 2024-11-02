@@ -1,10 +1,11 @@
 import { Button, Typography } from "@mui/material";
 import { Link } from "@remix-run/react";
 import { DroppableEditor } from "features/editor/components/DroppableEditor";
-import { ImageEditor } from "features/editor/components/ImageEditor";
+import { ImageEditor } from "features/editor/components/editors/ImageEditor";
 import { SectionTool } from "features/editor/components/SectionTools";
-import { TextEditor } from "features/editor/components/TextEditor";
+import { TextEditor } from "features/editor/components/editors/TextEditor";
 import { EditorContextProvider } from "features/editor/context";
+import { CarouselEditor } from "features/editor/components/editors/CarouselEditor";
 
 export default function Page() {
   return (
@@ -21,6 +22,7 @@ export default function Page() {
           <SectionTool />
           <ImageEditor />
           <TextEditor />
+          <CarouselEditor />
         </div>
         <div className="h-full w-2/3 lg:w-3/4">
           <DroppableEditor />

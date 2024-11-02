@@ -1,4 +1,4 @@
-export type SectionDO = TextSectionDO | ImageSectionDO;
+export type SectionDO = TextSectionDO | ImageSectionDO | CarouselSectionDO;
 
 export interface TextSectionDO {
   id: string;
@@ -12,6 +12,16 @@ export interface ImageSectionDO {
   url: string;
   width: string;
   height: string;
+}
+
+type CarouselImage = {
+  id: string;
+  url: string;
+};
+export interface CarouselSectionDO {
+  id: string;
+  type: "carousel";
+  images: CarouselImage[];
 }
 
 export abstract class EditorSection {
@@ -98,5 +108,51 @@ export class ImageSection extends EditorSection {
 
   static fromDataObject(data: ImageSectionDO) {
     return new ImageSection(data.id, data);
+  }
+}
+
+export class CarouselSection extends EditorSection {
+  images: CarouselImage[];
+  constructor(id?: string, options?: Partial<CarouselSectionDO>) {
+    super(id);
+    this.images = options?.images ?? [];
+  }
+
+  addImage() {
+    this.images.push({
+      url: "",
+      id: Math.round(Math.random() * 1e16).toString(),
+    });
+  }
+
+  editImage(id: string, url: string) {
+    this.images.map((image) => {
+      if (image.id === id) {
+        image.url = url;
+      }
+      return image;
+    });
+  }
+
+  removeImage(id: string) {
+    this.images = this.images.filter((image) => image.id !== id);
+  }
+
+  updateField(name: string, value: unknown): void {
+    if (name === "images" && Array.isArray(value)) {
+      this.images = value;
+    }
+  }
+
+  toDataObject(): CarouselSectionDO {
+    return {
+      type: "carousel",
+      id: this.id,
+      images: this.images,
+    };
+  }
+
+  static fromDataObject(data: CarouselSectionDO) {
+    return new CarouselSection(data.id, data);
   }
 }

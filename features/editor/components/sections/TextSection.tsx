@@ -1,4 +1,4 @@
-import { TextSectionDO } from "../model";
+import { TextSectionDO } from "../../model";
 
 type TextSectionProps = {
   section: TextSectionDO;

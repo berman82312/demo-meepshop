@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { EditorContext } from "../context";
+import { EditorContext } from "../../context";
 import { Box, TextField } from "@mui/material";
-import { ClearEditButton } from "./ResetEditing";
+import { ClearEditButton } from "../ResetEditing";
 
 export function TextEditor() {
   const { editingSection, editSection } = useContext(EditorContext);

@@ -31,6 +31,14 @@ export function SectionTool() {
       >
         Text
       </div>
+      <div
+        onDragStart={handleDragStart}
+        className="flex items-center justify-center w-24 h-24 rounded border border-neutral-400"
+        draggable
+        data-type="carousel"
+      >
+        Carousel
+      </div>
     </div>
   );
 }

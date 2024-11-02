@@ -1,4 +1,4 @@
-import { ImageSection, SectionDO, TextSection } from "./model";
+import { CarouselSection, ImageSection, SectionDO, TextSection } from "./model";
 
 export function getSectionFromDO(sectionDO: SectionDO) {
   if (sectionDO.type === "image") {
@@ -6,6 +6,9 @@ export function getSectionFromDO(sectionDO: SectionDO) {
   }
   if (sectionDO.type === "text") {
     return TextSection.fromDataObject(sectionDO);
+  }
+  if (sectionDO.type === "carousel") {
+    return CarouselSection.fromDataObject(sectionDO);
   }
   return null;
 }

@@ -1,8 +1,14 @@
 import { type DragEventHandler, KeyboardEventHandler, useContext } from "react";
-import { ImageSectionDO, SectionDO, TextSectionDO } from "../model";
-import { TextSection } from "./TextSection";
-import { ImageSection } from "./ImageSection";
+import {
+  CarouselSectionDO,
+  ImageSectionDO,
+  SectionDO,
+  TextSectionDO,
+} from "../model";
+import { TextSection } from "./sections/TextSection";
+import { ImageSection } from "./sections/ImageSection";
 import { EditorContext } from "../context";
+import { CarouselSection } from "./sections/CarouselSection.client";
 
 export const DroppableEditor = () => {
   const { sections, addSection } = useContext(EditorContext);
@@ -56,7 +62,9 @@ function EditorSection({ section }: EditorSectionProps) {
     >
       {section.type === "text"
         ? <TextSection section={section as TextSectionDO} />
-        : <ImageSection section={section as ImageSectionDO} />}
+        : section.type === "image"
+        ? <ImageSection section={section as ImageSectionDO} />
+        : <CarouselSection section={section as CarouselSectionDO} />}
     </div>
   );
 }

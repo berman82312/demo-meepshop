@@ -1,4 +1,4 @@
-import { ImageSectionDO } from "../model";
+import { ImageSectionDO } from "../../model";
 
 type ImageSectionProps = {
   section: ImageSectionDO;

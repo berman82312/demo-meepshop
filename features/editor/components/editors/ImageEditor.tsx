@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { EditorContext } from "../context";
+import { EditorContext } from "features/editor/context";
 import { Box, TextField } from "@mui/material";
-import { ClearEditButton } from "./ResetEditing";
+import { ClearEditButton } from "features/editor/components/ResetEditing";
 
 export function ImageEditor() {
   const { editingSection, editSection } = useContext(EditorContext);

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { EditorSection, ImageSection, SectionDO, TextSection } from "./model";
+import {
+  CarouselSection,
+  EditorSection,
+  ImageSection,
+  SectionDO,
+  TextSection,
+} from "./model";
 import { getSectionFromDO } from "./utils";
 
 export function useEditor() {
@@ -15,6 +21,9 @@ export function useEditor() {
     }
     if (type === "image") {
       newSection = new ImageSection();
+    }
+    if (type === "carousel") {
+      newSection = new CarouselSection();
     }
     if (!newSection) {
       return;
