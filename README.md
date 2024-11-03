@@ -1,40 +1,47 @@
-# Welcome to Remix!
+# Demo for MeepShop test
 
-- 📖 [Remix docs](https://remix.run/docs)
+## Prerequisites
 
-## Development
+Make sure [Docker](https://www.docker.com/) is installed and you are able to run the `docker compose` command. 
 
-Run the dev server:
+## Step 1. setup .env
 
-```shellscript
-npm run dev
+Please copy a `.env` from `.env.example`. Change the env parameters if needed.
+
+```bash
+cp .env.example .env
 ```
 
-## Deployment
+## Step 2. build docker containers
 
-First, build your app for production:
+Run the following command in terminal to start the services.
 
-```sh
-npm run build
+```bash
+docker compose up -d 
 ```
 
-Then run the app in production mode:
+## Step 3. migrate DB (only the first time)
 
-```sh
-npm start
+If this is the first time your start this project, please remember to migrate the DB first. Otherwise, the backend services (API) might not work as expected.
+
+Make sure your containers are up and running. `docker compose ps`
+
+```bash
+make migrate
 ```
 
-Now you'll need to pick a host to deploy it to.
+## Step 4. Open the app in browser
 
-### DIY
+Open a browser and visit [http://localhost:3000](http://localhost:3000), you should see the web app page. :D
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+## Packages used in this project
 
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+|Package|Description|
+|---|---|
+|[Remix](https://remix.run/)|A react framework to build a prototype quickly.|
+|[TailwindCSS](https://tailwindcss.com/)|A CSS framework to help us focus on HTML and building components.|
+|[Material UI](https://mui.com/material-ui/)|A UI framework with many pre-defined components which help us create an elegant looking prototype.|
+|[Sequelize](https://sequelize.org/)|An ORM system written in TypeScript. Using it to communicate with our DB, MySQL.|
+|[Nuka Carousel](https://commerce.nearform.com/open-source/nuka-carousel)|A react carousel library.|
+|[react-simple-wysiwyg](https://github.com/megahertz/react-simple-wysiwyg)|A simple and lightweight react WYSIWYG editor.|
+|[umzug](https://github.com/sequelize/umzug)|A library to help with DB migrations.|
