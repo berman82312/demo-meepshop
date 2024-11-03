@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <EditorContextProvider>
       <div className="flex items-center justify-center w-screen h-screen">
-        <div className="flex w-1/3 lg:w-1/4 flex-col bg-sky-100 dark:bg-sky-900 h-full gap-4 p-4">
+        <div className="flex w-1/3 lg:w-1/4 flex-col bg-sky-100 h-full gap-4 p-4">
           <Link to="/">
             <Button variant="text">
               <Typography>

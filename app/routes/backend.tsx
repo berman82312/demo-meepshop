@@ -32,21 +32,21 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">
       <div className="flex flex-col gap-4">
-        <Box className="border rounded border-neutral-400 dark: border-neutral-700 p-4">
+        <Box className="border rounded border-neutral-400 p-4">
           <Typography variant="h5">Case 1</Typography>
           <Typography variant="body1">Input: {case1.join(", ")}</Typography>
           <Typography variant="body1">
             Output: {invertTree(case1).join(", ")}
           </Typography>
         </Box>
-        <Box className="border rounded border-neutral-400 dark: border-neutral-700 p-4">
+        <Box className="border rounded border-neutral-400 p-4">
           <Typography variant="h5">Case 2</Typography>
           <Typography variant="body1">Input: {case2.join(", ")}</Typography>
           <Typography variant="body1">
             Output: {invertTree(case2).map(convertNull).join(", ")}
           </Typography>
         </Box>
-        <Box className="flex flex-col border rounded border-neutral-400 dark: border-neutral-700 p-4 gap-4">
+        <Box className="flex flex-col border rounded border-neutral-400 p-4 gap-4">
           <Typography variant="h4">Try it!</Typography>
           <TextField
             placeholder="5, 3, 8, 1, 7, 2, 6"

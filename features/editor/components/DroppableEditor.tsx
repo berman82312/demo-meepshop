@@ -56,7 +56,7 @@ function EditorSection({ section }: EditorSectionProps) {
 
   return (
     <div
-      className="flex p-4 rounded border border-neutral-200 dark: border-neutral-700"
+      className="flex p-4 rounded border border-neutral-200"
       onClick={onClick}
       onKeyUp={onKeyUp}
       role="button"
