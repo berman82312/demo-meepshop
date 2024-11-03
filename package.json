@@ -28,6 +28,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-simple-wysiwyg": "^3.1.3",
+    "swagger-ui-react": "^5.17.14",
     "umzug": "^3.8.2"
   },
   "devDependencies": {

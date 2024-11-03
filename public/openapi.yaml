@@ -1,0 +1,195 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+servers:
+  - url: /api 
+paths:
+  /accounts:
+    get:
+      summary: List all accounts
+      operationId: listAccounts
+      tags:
+        - accounts
+      responses:
+        200:
+          description: An array of all accounts
+          content:
+            application/json:    
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+    post:
+      summary: Create a new account
+      operationId: createAccount
+      tags:
+        - accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John
+      responses:
+        201:
+          description: New account created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+  /account/{id}:
+    get:
+      summary: Summary of a specific account
+      operationId: showAccountById
+      tags:
+        - accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the account to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully get an account 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+  /account/{id}/deposit:
+    post:
+      summary: Deposit to an account
+      operationId: depositToAccountId
+      tags:
+        - accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the account to deposit
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  format: int64
+                  example: 100
+      responses:
+        200:
+          description: Successfully deposit to an account 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+  /account/{id}/withdraw:
+    post:
+      summary: Withdraw from an account
+      operationId: withdrawFromAccountId
+      tags:
+        - accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the account to withdraw from
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  format: int64
+                  example: 10
+      responses:
+        200:
+          description: Successfully withdraw from an account 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+  /account/{id}/transfer:
+    post:
+      summary: Tranfer from an account to another account
+      operationId: TransferFromAccountId
+      tags:
+        - accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the account to transfer FROM
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                  example: 2
+                amount:
+                  type: integer
+                  format: int64
+                  example: 100 
+      responses:
+        200:
+          description: Successfully transfer from an account to another account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fromAccount:
+                    $ref: "#/components/schemas/Account"
+                  toAccount:
+                    $ref: "#/components/schemas/Account"
+                  amount:
+                    type: integer
+                    format: int64
+                    example: 100
+components:
+  schemas:
+    Account:
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Jack
+        balance:
+          type: integer
+          format: int64
+          example: 100
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

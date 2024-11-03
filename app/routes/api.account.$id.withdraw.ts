@@ -27,7 +27,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       return account;
     });
 
-    return json(result, 201);
+    return json(result, 200);
   } catch (err: unknown) {
     console.error(err);
 

@@ -51,7 +51,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       fromAccount,
       toAccount,
       amount,
-    }, 201);
+    }, 200);
   } catch (err: unknown) {
     console.error(err);
 
