@@ -14,7 +14,7 @@ export function SectionTool() {
     return null;
   }
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-wrap">
       <div
         onDragStart={handleDragStart}
         className="flex items-center justify-center w-24 h-24 rounded border border-neutral-400"
@@ -38,6 +38,14 @@ export function SectionTool() {
         data-type="carousel"
       >
         Carousel
+      </div>
+      <div
+        onDragStart={handleDragStart}
+        className="flex items-center justify-center w-24 h-24 rounded border border-neutral-400"
+        draggable
+        data-type="wysiwyg"
+      >
+        Wysiwyg
       </div>
     </div>
   );

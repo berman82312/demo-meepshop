@@ -1,4 +1,8 @@
-export type SectionDO = TextSectionDO | ImageSectionDO | CarouselSectionDO;
+export type SectionDO =
+  | TextSectionDO
+  | ImageSectionDO
+  | CarouselSectionDO
+  | WysiwygSectionDO;
 
 export interface TextSectionDO {
   id: string;
@@ -22,6 +26,12 @@ export interface CarouselSectionDO {
   id: string;
   type: "carousel";
   images: CarouselImage[];
+}
+
+export interface WysiwygSectionDO {
+  id: string;
+  type: "wysiwyg";
+  content: string;
 }
 
 export abstract class EditorSection {
@@ -154,5 +164,31 @@ export class CarouselSection extends EditorSection {
 
   static fromDataObject(data: CarouselSectionDO) {
     return new CarouselSection(data.id, data);
+  }
+}
+
+export class WysiwygSection extends EditorSection {
+  content: string;
+  constructor(id?: string, options?: Partial<WysiwygSectionDO>) {
+    super(id);
+    this.content = options?.content ?? "";
+  }
+
+  updateField(name: string, value: unknown): void {
+    if (name === "content" && typeof value === "string") {
+      this.content = value;
+    }
+  }
+
+  toDataObject(): WysiwygSectionDO {
+    return {
+      type: "wysiwyg",
+      id: this.id,
+      content: this.content,
+    };
+  }
+
+  static fromDataObject(data: WysiwygSectionDO) {
+    return new WysiwygSection(data.id, data);
   }
 }

@@ -6,6 +6,7 @@ import { SectionTool } from "features/editor/components/SectionTools";
 import { TextEditor } from "features/editor/components/editors/TextEditor";
 import { EditorContextProvider } from "features/editor/context";
 import { CarouselEditor } from "features/editor/components/editors/CarouselEditor";
+import { WysiwygEditor } from "features/editor/components/editors/WysiwygEditor";
 
 export default function Page() {
   return (
@@ -23,6 +24,7 @@ export default function Page() {
           <ImageEditor />
           <TextEditor />
           <CarouselEditor />
+          <WysiwygEditor />
         </div>
         <div className="h-full w-2/3 lg:w-3/4">
           <DroppableEditor />

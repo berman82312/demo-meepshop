@@ -3,8 +3,9 @@ import {
   CarouselSection,
   EditorSection,
   ImageSection,
-  SectionDO,
+  type SectionDO,
   TextSection,
+  WysiwygSection,
 } from "./model";
 import { getSectionFromDO } from "./utils";
 
@@ -24,6 +25,9 @@ export function useEditor() {
     }
     if (type === "carousel") {
       newSection = new CarouselSection();
+    }
+    if (type === "wysiwyg") {
+      newSection = new WysiwygSection();
     }
     if (!newSection) {
       return;

@@ -4,11 +4,13 @@ import {
   ImageSectionDO,
   SectionDO,
   TextSectionDO,
+  WysiwygSectionDO,
 } from "../model";
 import { TextSection } from "./sections/TextSection";
 import { ImageSection } from "./sections/ImageSection";
 import { EditorContext } from "../context";
 import { CarouselSection } from "./sections/CarouselSection.client";
+import { WysiwygSection } from "./sections/WysiwygSection";
 
 export const DroppableEditor = () => {
   const { sections, addSection } = useContext(EditorContext);
@@ -64,7 +66,9 @@ function EditorSection({ section }: EditorSectionProps) {
         ? <TextSection section={section as TextSectionDO} />
         : section.type === "image"
         ? <ImageSection section={section as ImageSectionDO} />
-        : <CarouselSection section={section as CarouselSectionDO} />}
+        : section.type === "carousel"
+        ? <CarouselSection section={section as CarouselSectionDO} />
+        : <WysiwygSection section={section as WysiwygSectionDO} />}
     </div>
   );
 }
